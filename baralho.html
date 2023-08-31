@@ -12,13 +12,16 @@
 <body>
 
     <div class="container" style="display:none;">
-        <ul class="hands">
-        </ul>
-        <button class="discard-button">Descartar Carta</button>
-        <button class="replenish-button">Reabastecer Mão</button>
-        <button class="conferir-button">Conferir!</button>
-        <div class="deck-counter">Baralhos no Deck: <span id="baralhos-count">0</span></div>
-        <div class="score-counter">Pontos: <span id="score-count">0</span></div>
+        <ul class="hands"></ul>
+
+        <div class="buttons">
+            <button class="discard-button">Descartar Carta</button>
+            <button class="replenish-button">Reabastecer Mão</button>
+            <button class="conferir-button">Conferir!</button>
+            <div class="deck-counter">Baralhos no Deck: <span id="baralhos-count">0</span></div>
+            <div class="score-counter">Pontos: <span id="score-count">0</span></div>
+        </div>
+
     </div>
 
     <div class="pyro" style="display: none;">
@@ -39,7 +42,7 @@
         const conferirdButton = document.querySelector('.conferir-button');
 
         const baralho = new Baralho();
-        //baralho.embaralhar();   
+        baralho.embaralhar();   
 
         let jogadores = [];
         //const jogador1 = criarJogador('Jogador 1', baralho, maoContainer);
@@ -51,7 +54,7 @@
 
         conferirdButton.addEventListener('click', () => {
             let pontos = verificarCombinacoesPoker(jogador1.score)
-            if (pontos> jogador1.score) {               
+            if (pontos > jogador1.score) {
                 replenishButton.click();
             } else {
                 replenishButton.click();
