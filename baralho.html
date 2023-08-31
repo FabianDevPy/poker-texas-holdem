@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <title>Awesome-pyecharts</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>    
-
+    <link rel="stylesheet" href="pyro.css">
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -16,26 +16,52 @@
         </ul>
         <button class="discard-button">Descartar Carta</button>
         <button class="replenish-button">Reabastecer Mão</button>
+        <button class="conferir-button">Conferir!</button>
         <div class="deck-counter">Baralhos no Deck: <span id="baralhos-count">0</span></div>
+        <div class="score-counter">Pontos: <span id="score-count">0</span></div>
     </div>
 
-<script src="classes.js"></script>
-<script src="functions.js"></script>
+    <div class="pyro" style="display: none;">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
 
-    <script>       
+    <span class="win"></span>
+
+    <script src="classes.js"></script>
+    <script src="functions.js"></script>
+
+    <script>
         const maoContainer = document.querySelector('.hands');
         const contadorElement = document.getElementById('baralhos-count');
         const replenishButton = document.querySelector('.replenish-button');
         const discardButton = document.querySelector('.discard-button');
+        const conferirdButton = document.querySelector('.conferir-button');
 
-        const baralho = new Baralho();      
+        const baralho = new Baralho();
+        //baralho.embaralhar();   
 
         let jogadores = [];
-        const jogador1 = criarJogador('Jogador 1', baralho, maoContainer);
+        //const jogador1 = criarJogador('Jogador 1', baralho, maoContainer);
+        const jogador1 = new Jogador('Jogador 1', baralho, maoContainer);
 
         criarJogo(jogador1, baralho, maoContainer, contadorElement, replenishButton, discardButton);
 
         console.log(jogador1.mao.length);
+
+        conferirdButton.addEventListener('click', () => {
+            let pontos = verificarCombinacoesPoker(jogador1.score)
+            if (pontos> jogador1.score) {               
+                replenishButton.click();
+            } else {
+                replenishButton.click();
+                document.querySelector('.win').textContent = 'Você perdeu!';
+            }
+            console.log("score do jogador", pontos);
+            const scoreElement = document.querySelector('#score-count');
+            scoreElement.textContent = pontos;
+            jogador1.score = pontos;
+        });
 
     </script>
 

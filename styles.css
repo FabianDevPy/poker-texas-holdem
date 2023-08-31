@@ -3,7 +3,7 @@ body {
 }
 
 .hands {
-    --cards: 9;
+    --cards: 6;
     --curvature: 70deg;
     counter-reset: cards;
     position: absolute;
@@ -25,13 +25,16 @@ body {
     max-width: 20vh;
     aspect-ratio: 2/3;
     transform-origin: 50% 100%;
-    transform: rotate(var(--curve)) translateY(-225%);
+    transform: rotate(var(--curve)) translateY(-150%);
     transition: all 0.3s;
     position: absolute;
     cursor: pointer;
     font-size: 11vmin;
     transform-style: preserve-3d;
     list-style: none;
+}
+.hands>*.active {
+   transform: translate( calc( var(--index)*-60% ), -300%) rotate(0deg);
 }
 
 .hands>*::before {

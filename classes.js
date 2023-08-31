@@ -43,10 +43,10 @@ class Jogador {
         this.nome = nome;
         this.mao = [];
         this.baralho = baralho;
-
-
-
-        for (let i = 0; i < 6; i++) {
+        this.maoContainer = maoContainer;
+        this.score = 0;
+        
+        for (let i = 0; i < 5; i++) {
             this.mao.push(baralho.distribuirCarta());
         }
 
@@ -55,24 +55,19 @@ class Jogador {
 
     }
 
+    
+
     mostrarMao(maoContainer) {
 
         maoContainer.innerHTML = ''; // Limpa o conteúdo anterior
 
         this.mao.forEach((carta, index) => {
+            // Cria um elemento HTML para cada carta
             const cartaHtml = document.createElement('li');
-            //cartaHtml.textContent = carta.toString();
             cartaHtml.style.setProperty("--before-content", `'${carta.toString()}'`);
             cartaHtml.classList.add('hand-card'); // Classe para estilização
             cartaHtml.addEventListener('click', function () {
                 cartaHtml.classList.toggle('active');
-                if (cartaHtml.classList.contains('active')) {
-                    cartaHtml.style.zIndex = 100;
-                    cartaHtml.style.transform = 'translateY(-360%) rotate(0deg)';
-                } else {
-                    cartaHtml.style.zIndex = 0;
-                    cartaHtml.style.transform = 'rotate(calc(var(--curve) * 1)) translateY(-225%)';
-                }
             });
             maoContainer.appendChild(cartaHtml);
 
@@ -84,6 +79,7 @@ class Jogador {
         if (cardIndex !== -1) {
             this.mao.splice(cardIndex, 1);
             this.mostrarMao(maoContainer); // Atualiza a exibição das cartas
+
         }
     }
     removeCartaDoBaralho(cardValue, maoContainer) {
